@@ -3,19 +3,16 @@ var stage = new Konva.Stage({
     width: 800,
     height: 600
 });
-
 var layer = new Konva.Layer();
 stage.add(layer);
 
 var images = [];
 
-// AI Scene Generation
+// Generate AI cartoon scene
 document.getElementById('generateAI').addEventListener('click', async () => {
     const prompt = document.getElementById('parodyPrompt').value;
-    // Example: call AI API to generate images based on prompt
-    // Replace this with real AI API (DALL·E, Stable Diffusion)
-    const aiImages = await fakeAIImageGenerator(prompt);
-    
+    const aiImages = await generateCartoonAI(prompt);
+
     aiImages.forEach(src => {
         var img = new Image();
         img.src = src;
@@ -33,10 +30,12 @@ document.getElementById('generateAI').addEventListener('click', async () => {
     });
 });
 
-// Fake AI generator for testing (replace with real API)
-async function fakeAIImageGenerator(prompt){
-    console.log('Generating AI scene for:', prompt);
-    // Return placeholder image URLs
+// AI generation function (replace with real API)
+async function generateCartoonAI(prompt){
+    console.log("Generating cartoon parody for:", prompt);
+    // Example: use DALL·E or Stable Diffusion API to generate cartoon-style images
+    // Add "cartoon style", "SpongeBob parody", "2D animation" in prompt for best result
+    // Return array of image URLs
     return [
         'https://via.placeholder.com/150/FF0000/FFFFFF?text=Character1',
         'https://via.placeholder.com/150/00FF00/FFFFFF?text=Character2',
@@ -44,7 +43,7 @@ async function fakeAIImageGenerator(prompt){
     ];
 }
 
-// Upload PNG/JPG
+// Upload additional PNG/JPG
 document.getElementById('upload').addEventListener('change', function(e){
     var file = e.target.files[0];
     var reader = new FileReader();
@@ -66,7 +65,7 @@ document.getElementById('upload').addEventListener('change', function(e){
     reader.readAsDataURL(file);
 });
 
-// Save Project as JSON
+// Save project as JSON
 document.getElementById('saveRig').addEventListener('click', function(){
     var data = images.map(img => ({
         x: img.x(),
@@ -83,7 +82,7 @@ document.getElementById('saveRig').addEventListener('click', function(){
     a.click();
 });
 
-// Export Canvas as GIF
+// Export canvas as GIF (replace with MP4 via FFmpeg for video)
 document.getElementById('exportVideo').addEventListener('click', function(){
     var gif = new GIF({ workers: 2, quality: 10 });
     gif.addFrame(stage.toCanvas(), {delay: 200});
