@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>AI Parody Cartoon Video Maker</title>
+  <title>AI Cartoon Parody Video Maker</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>AI Parody Cartoon Video Maker</h1>
+  <h1>AI Cartoon Parody Video Maker</h1>
 
-  <input type="text" id="parodyPrompt" placeholder="Type a parody scene )">
-  <button id="generateAI">Generate Parody Scene</button>
+  <input type="text" id="parodyPrompt" placeholder="Type your parody scene">
+  <button id="generateAI">Generate Cartoon Scene</button>
 
   <input type="file" id="upload" accept="image/png, image/jpeg">
   
