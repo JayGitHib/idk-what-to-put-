@@ -7,7 +7,7 @@
 <body>
   <h1>AI Parody Cartoon Video Maker</h1>
 
-  <input type="text" id="parodyPrompt" placeholder="Type a parody scene (e.g. SpongeBob at Krabby OS)">
+  <input type="text" id="parodyPrompt" placeholder="Type a parody scene )">
   <button id="generateAI">Generate Parody Scene</button>
 
   <input type="file" id="upload" accept="image/png, image/jpeg">
