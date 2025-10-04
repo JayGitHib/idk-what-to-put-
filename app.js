@@ -1,16 +1,50 @@
-// Initialize Konva stage
 var stage = new Konva.Stage({
-  container: 'container',
-  width: 800,
-  height: 600
+    container: 'container',
+    width: 800,
+    height: 600
 });
 
 var layer = new Konva.Layer();
 stage.add(layer);
 
-var images = []; // store images
+var images = [];
 
-// Handle file upload
+// AI Scene Generation
+document.getElementById('generateAI').addEventListener('click', async () => {
+    const prompt = document.getElementById('parodyPrompt').value;
+    // Example: call AI API to generate images based on prompt
+    // Replace this with real AI API (DALL·E, Stable Diffusion)
+    const aiImages = await fakeAIImageGenerator(prompt);
+    
+    aiImages.forEach(src => {
+        var img = new Image();
+        img.src = src;
+        img.onload = function(){
+            var konvaImg = new Konva.Image({
+                x: Math.random() * 400,
+                y: Math.random() * 300,
+                image: img,
+                draggable: true
+            });
+            layer.add(konvaImg);
+            layer.draw();
+            images.push(konvaImg);
+        }
+    });
+});
+
+// Fake AI generator for testing (replace with real API)
+async function fakeAIImageGenerator(prompt){
+    console.log('Generating AI scene for:', prompt);
+    // Return placeholder image URLs
+    return [
+        'https://via.placeholder.com/150/FF0000/FFFFFF?text=Character1',
+        'https://via.placeholder.com/150/00FF00/FFFFFF?text=Character2',
+        'https://via.placeholder.com/800x600/AAAAFF/FFFFFF?text=Background'
+    ];
+}
+
+// Upload PNG/JPG
 document.getElementById('upload').addEventListener('change', function(e){
     var file = e.target.files[0];
     var reader = new FileReader();
@@ -32,18 +66,7 @@ document.getElementById('upload').addEventListener('change', function(e){
     reader.readAsDataURL(file);
 });
 
-// Placeholder for AI scene generation (replace with your API)
-document.getElementById('generateAI').addEventListener('click', function(){
-    var prompt = document.getElementById('parodyPrompt').value;
-    alert('AI would generate scene for: ' + prompt + '\n(This requires AI integration)');
-});
-
-// Remove background placeholder
-document.getElementById('removeBg').addEventListener('click', function(){
-    alert('Background removal would be applied here using AI API.');
-});
-
-// Save project as JSON
+// Save Project as JSON
 document.getElementById('saveRig').addEventListener('click', function(){
     var data = images.map(img => ({
         x: img.x(),
@@ -60,12 +83,9 @@ document.getElementById('saveRig').addEventListener('click', function(){
     a.click();
 });
 
-// Export canvas as GIF (simplified)
+// Export Canvas as GIF
 document.getElementById('exportVideo').addEventListener('click', function(){
-    var gif = new GIF({
-        workers: 2,
-        quality: 10
-    });
+    var gif = new GIF({ workers: 2, quality: 10 });
     gif.addFrame(stage.toCanvas(), {delay: 200});
     gif.on('finished', function(blob){
         var url = URL.createObjectURL(blob);
